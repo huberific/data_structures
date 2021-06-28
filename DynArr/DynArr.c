@@ -1,7 +1,10 @@
 /******************************************************************************
-* Description: This is an implementation of a dynamic array in C. Similar to a
-*              vector in C++.
+* Description: Implementation of a dynamic array in C (s/t C++ vector)
 ******************************************************************************/
+
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
 
 #ifndef TYPE
 #define TYPE int
@@ -71,7 +74,7 @@ void addDynArr(struct DynArr *v, TYPE val){
     if(v->size == v->capacity)
         _setCapacityDynArr(v, v->capacity * 2);
 
-    v->data[size] = val;
+    v->data[v->size] = val;
     v->size++;
 
 }
@@ -115,14 +118,39 @@ void removeAtDynArr(struct DynArr *da, int index){
     assert(da->size > 0);
     assert(index >= 0 && index < da->size);
 
-    for(int i = position + 1; i < da->size; i++)
+    for(int i = index + 1; i < da->size; i++)
         da->data[i - 1] = da->data[i];
 
     da->size--;
 
 }
 
+void printDynArr(struct DynArr v){
+
+    if(v.size > 0)
+        for(int i = 0; i < v.size; i++)
+            printf("%d\n", v.data[i]);
+    else
+        printf("dyn array empty!\n");
+
+}
+
 int main(int argc, char *argv[]) {
 
+    struct DynArr myDynArr;
+    initDynArr(&myDynArr, 1);
 
+    for(int i = 0; i < 12; i++){
+        addDynArr(&myDynArr, 11 * i);
+        printf("array size = %d\n", myDynArr.capacity);
+    }
+
+    printDynArr(myDynArr);
+    
+    for(int i = 0; i < 10; i++)
+        removeAtDynArr(&myDynArr, 0);
+
+    printDynArr(myDynArr);
+
+    free(myDynArr.data);
 }
