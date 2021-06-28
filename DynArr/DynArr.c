@@ -1,3 +1,8 @@
+/******************************************************************************
+* Description: This is an implementation of a dynamic array in C. Similar to a
+*              vector in C++.
+******************************************************************************/
+
 #ifndef TYPE
 #define TYPE int
 #endif
@@ -41,6 +46,7 @@ int sizeDynArr(struct DynArr *v){
 
 }
 
+// resizes the dynamic array to new capacity passed (doubled):
 void _setCapacityDynArr(struct DynArr *v, int newCap){
 
     /* create new dyn array of size passed */
@@ -58,6 +64,7 @@ void _setCapacityDynArr(struct DynArr *v, int newCap){
 
 }
 
+// adds data value passed to dynamic array:
 void addDynArr(struct DynArr *v, TYPE val){
 
     /* check if resize is necessary */
@@ -69,6 +76,7 @@ void addDynArr(struct DynArr *v, TYPE val){
 
 }
 
+// returns data value at position passed:
 TYPE getDynArr(struct DynArr *da, int position){
 
     assert(position >= 0);
@@ -78,6 +86,7 @@ TYPE getDynArr(struct DynArr *da, int position){
 
 }
 
+// puts data value in position passed:
 TYPE putDynArr(struct DynArr *da, int position, TYPE value){
 
     assert(position >= 0);
@@ -87,6 +96,7 @@ TYPE putDynArr(struct DynArr *da, int position, TYPE value){
 
 }
 
+// swaps data values at two positions passed:
 void swapDynArr(struct DynArr *da, int i, int j){
 
     assert(da->size > 0);
@@ -99,12 +109,20 @@ void swapDynArr(struct DynArr *da, int i, int j){
 
 }
 
+// removes element in dynamic array at index passed:
 void removeAtDynArr(struct DynArr *da, int index){
 
     assert(da->size > 0);
+    assert(index >= 0 && index < da->size);
 
-    
+    for(int i = position + 1; i < da->size; i++)
+        da->data[i - 1] = da->data[i];
 
+    da->size--;
+
+}
+
+int main(int argc, char *argv[]) {
 
 
 }
