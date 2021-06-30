@@ -6,51 +6,41 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#ifndef TYPE
-#define TYPE int
-#endif
-
-struct DynArr {
-
-    TYPE *data;     /* pointer to data array */
-    int  size;      /* number of elements in array */
-    int  capacity;  /* capacity of data array */
-
-};
+#include "DynArr.h"
 
 // initialize a dynamic array:
-void initDynArr(struct DynArr *v, int capacity){
+void initDynArr(struct DynArr *v, int cap) {
 
-    v->data = malloc(sizeof(TYPE) * capacity);
+    v->data = malloc(sizeof(TYPE) * cap);
     assert(v->data != 0);
 
     v->size = 0;
-    v->capacity = capacity;
+    v->cap = cap;
 
 }
 
 // free the dynamic array:
-void freeDynArr(struct DynArr *v){
+void freeDynArr(struct DynArr *v) {
 
-    if(v->data != 0){
+    if(v->data != 0) {
         free(v->data);  /* free dyn memory on the heap */
         v->data = 0;    /* data pointer points to NULL */
     }
 
     v->size = 0;
-    v->capacity = 0;
+    v->cap = 0;
 
 }
 
 // get size of dynamic array:
-int sizeDynArr(struct DynArr *v){
+int sizeDynArr(struct DynArr *v) {
 
     return v->size;
 
 }
 
 // resizes the dynamic array to new capacity passed (doubled):
-void _setCapacityDynArr(struct DynArr *v, int newCap){
+void _setCapacityDynArr(struct DynArr *v, int newCap) {
 
     /* create new dyn array of size passed */
     TYPE* newDynArr = malloc(sizeof(TYPE) * newCap);
@@ -63,16 +53,16 @@ void _setCapacityDynArr(struct DynArr *v, int newCap){
     free(v->data);
 
     v->data = newDynArr;
-    v->capacity = newCap;
+    v->cap = newCap;
 
 }
 
 // adds data value passed to dynamic array:
-void addDynArr(struct DynArr *v, TYPE val){
+void addDynArr(struct DynArr *v, TYPE val) {
 
     /* check if resize is necessary */
-    if(v->size == v->capacity)
-        _setCapacityDynArr(v, v->capacity * 2);
+    if(v->size == v->cap)
+        _setCapacityDynArr(v, v->cap * 2);
 
     v->data[v->size] = val;
     v->size++;
@@ -80,7 +70,7 @@ void addDynArr(struct DynArr *v, TYPE val){
 }
 
 // returns data value at position passed:
-TYPE getDynArr(struct DynArr *da, int position){
+TYPE getDynArr(struct DynArr *da, int position) {
 
     assert(position >= 0);
     assert(da->size > 0 && position < da->size);
@@ -90,7 +80,7 @@ TYPE getDynArr(struct DynArr *da, int position){
 }
 
 // puts data value in position passed:
-TYPE putDynArr(struct DynArr *da, int position, TYPE value){
+TYPE putDynArr(struct DynArr *da, int position, TYPE value) {
 
     assert(position >= 0);
     assert(da->size > 0 && position < da->size);
@@ -100,7 +90,7 @@ TYPE putDynArr(struct DynArr *da, int position, TYPE value){
 }
 
 // swaps data values at two positions passed:
-void swapDynArr(struct DynArr *da, int i, int j){
+void swapDynArr(struct DynArr *da, int i, int j) {
 
     assert(da->size > 0);
     assert(i >= 0 && j >= 0);
@@ -113,7 +103,7 @@ void swapDynArr(struct DynArr *da, int i, int j){
 }
 
 // removes element in dynamic array at index passed:
-void removeAtDynArr(struct DynArr *da, int index){
+void removeAtDynArr(struct DynArr *da, int index) {
 
     assert(da->size > 0);
     assert(index >= 0 && index < da->size);
@@ -125,7 +115,8 @@ void removeAtDynArr(struct DynArr *da, int index){
 
 }
 
-void printDynArr(struct DynArr v){
+// prints contents of dynamic array:
+void printDynArr(struct DynArr v) {
 
     if(v.size > 0)
         for(int i = 0; i < v.size; i++)
@@ -133,24 +124,4 @@ void printDynArr(struct DynArr v){
     else
         printf("dyn array empty!\n");
 
-}
-
-int main(int argc, char *argv[]) {
-
-    struct DynArr myDynArr;
-    initDynArr(&myDynArr, 1);
-
-    for(int i = 0; i < 12; i++){
-        addDynArr(&myDynArr, 11 * i);
-        printf("array size = %d\n", myDynArr.capacity);
-    }
-
-    printDynArr(myDynArr);
-    
-    for(int i = 0; i < 10; i++)
-        removeAtDynArr(&myDynArr, 0);
-
-    printDynArr(myDynArr);
-
-    free(myDynArr.data);
 }
