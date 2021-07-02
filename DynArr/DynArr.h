@@ -1,5 +1,5 @@
 /******************************************************************************
-* Description: Interface file  of a dynamic array in C (s/t C++ vector)
+* Description: Interface file of a dynamic array in C (s/t C++ vector)
 ******************************************************************************/
 
 #ifndef TYPE
