@@ -33,7 +33,7 @@ void _dequeSetCapacity(struct Deque* d, int newCap) {
     int i = 0, 
         j = d->beg;
 
-    for (; i < dequeSize(&d); ++i) {
+    for (; i < dequeSize(d); ++i) {
 
         newData[i] = d->data[j++];
 
@@ -70,8 +70,8 @@ void dequeAddFront(struct Deque* d, TYPE val) {
 
     // check if there is space for new val
     // resize deque if not
-    if (dequeSize(&d) >= d->cap)
-        _dequeSetCapacity(&d, 2 * d->cap);
+    if (dequeSize(d) >= d->cap)
+        _dequeSetCapacity(d, 2 * d->cap);
 
     // place new value to the left of beg pointer:
     int idx = d->beg - 1;
@@ -95,8 +95,8 @@ void dequeAddBack(struct Deque* d, TYPE val) {
 
     // check if there is space for new val
     // resize deque if not
-    if (dequeSize(&d) >= d->capacity)
-        _dequeSetCapacity(&d, 2 * d->cap);
+    if (dequeSize(d) >= d->cap)
+        _dequeSetCapacity(d, 2 * d->cap);
 
     // idx to hold last element position:
     int idx = d->beg + d->size;
@@ -106,7 +106,6 @@ void dequeAddBack(struct Deque* d, TYPE val) {
         idx = d->cap - d->beg;
 
     d->data[idx] = val;
-    d->beg = idx;
 
     // increment size of deque:
     d->size++;
@@ -116,7 +115,7 @@ void dequeAddBack(struct Deque* d, TYPE val) {
 // returns the front element of the deque:
 TYPE dequeFront(struct Deque* d) {
 
-    assert(dequeSize(&d) > 0);
+    assert(dequeSize(d) > 0);
 
     return d->data[d->beg];
 
@@ -125,7 +124,7 @@ TYPE dequeFront(struct Deque* d) {
 // returns the back element of the deque:
 TYPE dequeBack(struct Deque* d) {
 
-    assert(dequeSize(&d) > 0);
+    assert(dequeSize(d) > 0);
 
     // idx to hold last element position:
     int idx = d->beg + d->size;
@@ -172,17 +171,30 @@ void dequeFree(struct Deque* d) {
 
     // free up dynamic memory allocationed:
     free(d->data);
-
-
+}
 
 // prints contents of deque:
 void printDeque(struct Deque* d) {
 
-    int dequeSize = dequeSize(&d);
+    int dSize = dequeSize(d);
 
-    if (dequeSize > 0){
-        for (int i = 0; i < dequeSize; ++i){
+    if (dSize > 0)
+        for (int i = 0; i < dSize; ++i)
             printf("[%d] = %d\n", i, d->data[i]);
+    else
+        printf("deque is empty!\n");
+
+}
+
+// prints and empties contents of deque:
+void printAndEmptyDeque(struct Deque* d) {
+
+    int dSize = dequeSize(d);
+
+    if (dSize > 0) {
+        for (int i = 0; i < dSize; ++i) {
+            printf("%d\n", dequeFront(d));
+            dequeRemoveFront(d);
         }
     }
     else

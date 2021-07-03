@@ -17,11 +17,20 @@ int main(int argc, char *argv[]) {
         dequeAddFront(&myDeque, i);
         printf("adding %d to front of deque\n", i);
         printf("deque cap = %d\n", myDeque.cap);
+        printf("d->beg = %d\n", myDeque.beg);
     }
 
-    printDeque(&myDeque);
+    // add values to deque:
+    for (int i = 10; i < 20; ++i) {
+        dequeAddBack(&myDeque, i);
+        printf("adding %d to back of deque\n", i);
+        printf("deque cap = %d\n", myDeque.cap);
+        printf("d->beg = %d\n", myDeque.beg);
+    }
 
-    freeDeque(&myDeque);
+    printAndEmptyDeque(&myDeque);
+
+    dequeFree(&myDeque);
 
     return 0;
 }

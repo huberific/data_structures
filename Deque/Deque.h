@@ -52,3 +52,6 @@ void dequeFree(struct Deque*);
 
 // prints contents of deque:
 void printDeque(struct Deque*);
+
+// prints and empties contents of deque:
+void printAndEmptyDeque(struct Deque*);
