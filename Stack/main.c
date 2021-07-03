@@ -30,4 +30,6 @@ int main(int argc, char *argv[]) {
     printDynArr(myStack);
 
     freeDynArr(&myStack);
+
+    return 0;
 }
