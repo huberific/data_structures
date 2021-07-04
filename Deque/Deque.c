@@ -9,16 +9,15 @@
 #include "Deque.h"
 
 // initializes a deque using dynamic array:
-void dequeInit(struct Deque* d, int cap) {
+void dequeInit(struct Deque* d, int initCap) {
 
-    assert(d != 0 && cap > 0);
+    assert(d != 0 && initCap > 0);
 
-    d->data = (TYPE*)malloc(sizeof(TYPE) * cap);
+    d->data = (TYPE*)malloc(sizeof(TYPE) * initCap);
     assert(d->data != 0);
 
-    d->size = 0;
-    d->cap  = cap;
-    d->beg  = 0;     /* start beg pointer at array index 0 */
+    d->size = d->beg = 0;     /* start beg indicator at array index 0 */
+    d->cap  = initCap;
     
 }
 
@@ -30,6 +29,7 @@ void _dequeSetCapacity(struct Deque* d, int newCap) {
     /* create new array to hold elements */
     TYPE* newData = (TYPE*)malloc(sizeof(TYPE) * newCap);
 
+    /* for copying elements, note j used to wrap around array if needed */
     int i = 0, 
         j = d->beg;
 
@@ -37,6 +37,7 @@ void _dequeSetCapacity(struct Deque* d, int newCap) {
 
         newData[i] = d->data[j++];
 
+        /* if data wraps around */
         if (j >= d->cap)
             j = 0;
     }
@@ -68,12 +69,11 @@ void dequeAddFront(struct Deque* d, TYPE val) {
 
     assert(d != 0);
 
-    // check if there is space for new val
-    // resize deque if not
+    // check if there is space for new val, resize deque if not:
     if (dequeSize(d) >= d->cap)
         _dequeSetCapacity(d, 2 * d->cap);
 
-    // place new value to the left of beg pointer:
+    // place new value to the left of beg indicator:
     int idx = d->beg - 1;
 
     // if beg is at index 0, place new value at last index:
@@ -93,8 +93,7 @@ void dequeAddBack(struct Deque* d, TYPE val) {
 
     assert(d != 0);
 
-    // check if there is space for new val
-    // resize deque if not
+    // check if there is space for new val, resize deque if not:
     if (dequeSize(d) >= d->cap)
         _dequeSetCapacity(d, 2 * d->cap);
 
@@ -103,7 +102,7 @@ void dequeAddBack(struct Deque* d, TYPE val) {
 
     // if last index wraps around to front of array:
     if (idx >= d->cap)
-        idx = d->cap - d->beg;
+        idx -= d->cap;
 
     d->data[idx] = val;
 
@@ -131,7 +130,7 @@ TYPE dequeBack(struct Deque* d) {
 
     // if last element position has wrapped around to beginning of array:
     if (idx >= d->cap)
-        idx = d->cap - d->beg;
+        idx -= d->cap;
 
     return d->data[idx];
 
@@ -140,12 +139,12 @@ TYPE dequeBack(struct Deque* d) {
 // removes front element of deque:
 void dequeRemoveFront(struct Deque* d) {
 
-    assert(d != 0);
+    assert(dequeSize(d) > 0);
 
-    // increment beg pointer to point to next element:
+    // increment beg indicator to point to next element:
     d->beg++;
 
-    // account for beg pointer wrapping around to start of array:
+    // account for beg indicator wrapping around to start of array:
     if (d->beg >= d->cap)
         d->beg = 0;
 
@@ -157,9 +156,9 @@ void dequeRemoveFront(struct Deque* d) {
 // removes back element of deque:
 void dequeRemoveBack(struct Deque* d) {
 
-    assert(d != 0);
+    assert(dequeSize(d) > 0);
 
-    // no change to beg pointer needed, only size attribute:
+    // no change to beg indicator needed, only size attribute:
     d->size--;
 
 }
@@ -177,10 +176,19 @@ void dequeFree(struct Deque* d) {
 void printDeque(struct Deque* d) {
 
     int dSize = dequeSize(d);
+    int j = d->beg;
 
-    if (dSize > 0)
-        for (int i = 0; i < dSize; ++i)
-            printf("[%d] = %d\n", i, d->data[i]);
+    if (dSize > 0) {
+        for (int i = 0; i < dSize; ++i) {
+            printf("[%d] = %d\n", j, d->data[j]);
+            ++j;
+            if (j >= d->cap) j = 0;
+        }
+
+        printf("front of deque = %d\n", dequeFront(d));
+        printf("back of deque = %d\n", dequeBack(d));
+
+    }
     else
         printf("deque is empty!\n");
 

@@ -12,9 +12,8 @@ int main(int argc, char *argv[]) {
     struct Deque myDeque;
     dequeInit(&myDeque, 5);
 
-    /*
     // add values to deque:
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 5; i > 0; --i) {
         dequeAddFront(&myDeque, i);
         printf("adding %d to front of deque\n", i);
         printf("deque cap = %d\n", myDeque.cap);
@@ -22,21 +21,38 @@ int main(int argc, char *argv[]) {
     }
 
     // add values to deque:
-    for (int i = 10; i < 20; ++i) {
+    for (int i = 6; i < 11; ++i) {
         dequeAddBack(&myDeque, i);
         printf("adding %d to back of deque\n", i);
         printf("deque cap = %d\n", myDeque.cap);
         printf("d->beg = %d\n", myDeque.beg);
     }
-    */
 
-    dequeAddFront(&myDeque, 99);
+    printDeque(&myDeque);
 
+    dequeRemoveFront(&myDeque);
+    dequeRemoveFront(&myDeque);
+    dequeRemoveFront(&myDeque);
 
-    printf("front of deque = %d\n", dequeFront(&myDeque));
-    printf("back of deque = %d\n", dequeBack(&myDeque));
+    dequeRemoveBack(&myDeque);
+    dequeRemoveBack(&myDeque);
 
-    printAndEmptyDeque(&myDeque);
+    printDeque(&myDeque);
+
+    // add values to deque:
+    for (int i = 11; i < 15; ++i) {
+        dequeAddBack(&myDeque, i);
+        printf("adding %d to back of deque\n", i);
+        printf("deque cap = %d\n", myDeque.cap);
+        printf("d->beg = %d\n", myDeque.beg);
+    }
+
+    printDeque(&myDeque);
+
+    for (int i = dequeSize(&myDeque); i > 0; --i)
+        dequeRemoveFront(&myDeque);
+
+    printDeque(&myDeque);
 
     dequeFree(&myDeque);
 
