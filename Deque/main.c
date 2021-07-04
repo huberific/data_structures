@@ -12,6 +12,7 @@ int main(int argc, char *argv[]) {
     struct Deque myDeque;
     dequeInit(&myDeque, 5);
 
+    /*
     // add values to deque:
     for (int i = 0; i < 10; ++i) {
         dequeAddFront(&myDeque, i);
@@ -27,6 +28,13 @@ int main(int argc, char *argv[]) {
         printf("deque cap = %d\n", myDeque.cap);
         printf("d->beg = %d\n", myDeque.beg);
     }
+    */
+
+    dequeAddFront(&myDeque, 99);
+
+
+    printf("front of deque = %d\n", dequeFront(&myDeque));
+    printf("back of deque = %d\n", dequeBack(&myDeque));
 
     printAndEmptyDeque(&myDeque);
 

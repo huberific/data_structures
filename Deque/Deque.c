@@ -127,7 +127,7 @@ TYPE dequeBack(struct Deque* d) {
     assert(dequeSize(d) > 0);
 
     // idx to hold last element position:
-    int idx = d->beg + d->size;
+    int idx = d->beg + d->size - 1;
 
     // if last element position has wrapped around to beginning of array:
     if (idx >= d->cap)
