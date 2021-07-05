@@ -2,7 +2,7 @@
 * Description: Interface file of a Stack using a DynArr
 ******************************************************************************/
 
-#include "../DynArr/DynArr.h"
+#include "../../DynArr/DynArr.h"
 
 // adds element to back of array or top of the stack:
 void dynArrayPush (struct DynArr*, TYPE);
