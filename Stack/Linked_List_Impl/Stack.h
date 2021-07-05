@@ -12,30 +12,33 @@
 #endif
 
 /* stack struct holds top of stack pointing to first item in list */
-struct stack {
-    struct link* top;
+struct Stack {
+    struct Link* top;
 };
 
 /* link struct contains data and link to next item */
-struct link {
+struct Link {
     TYPE val;
-    struct link* next;
+    struct Link* next;
 };
 
 /* initializes stack */
-void initStack(struct stack*);
+void initStack(struct Stack*);
 
 /* empties stack */
-void freeStack(struct stack*);
+void freeStack(struct Stack*);
 
 /* pushes item to top of the stack */
-void pushStack(struct stack*, TYPE);
+void pushStack(struct Stack*, TYPE);
 
 /* returns top of the stack */
-TYPE topStack(struct stack*);
+TYPE topStack(struct Stack*);
 
 /* removes top of the stack */
-void popStack(struct stack*);
+void popStack(struct Stack*);
 
 /* returns 0 if stack is not empty, else non-zero */
-int isEmptyStack(struct stack*);
+int isEmptyStack(struct Stack*);
+
+/* prints contents of stack */
+void printStack(struct Stack*);
