@@ -39,14 +39,10 @@ void pushStack(struct Stack* s, TYPE newVal) {
     struct Link* newLink = (struct Link*)malloc(sizeof(struct Link));
     assert(newLink != 0);
 
-    /* temp hold current top link mem location */
-    struct Link* temp = s->top;
-    
     /* set top to new link mem location and apply attributes */
-    s->top = newLink;
     newLink->val = newVal;
-    newLink->next = temp;
-    temp = NULL;
+    newLink->next = s->top;
+    s->top = newLink;
 
 }
 

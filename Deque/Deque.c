@@ -1,5 +1,11 @@
 /******************************************************************************
 * Description: Interface file of a deque using a dynamic array
+*
+* Operations:  AddBack     --> best case O(1), worst O(n), avg O(1+)
+*              RemoveBack  --> best case O(1), worst O(1), avg O(1)
+*              AddFront    --> best case O(1), worst O(n), avg(1+)
+*              RemoveFront --> best case O(1), worst O(1), avg(1)
+*
 ******************************************************************************/
 
 #include <assert.h>
