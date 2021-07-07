@@ -1,6 +1,10 @@
 /*******************************************************************************
 * Author:       Aaron Huber
 * Description:  Implementation file of a Queue using a Linked List w/ Sentinel
+*               Items are added to back of queue and removed from the front of
+*               of the queue (proceeding sentinel). Must do this because there
+*               are no prev pointers to know last link's prev link if we wanted
+*               to remove from the back.
 *******************************************************************************/
 
 #include "Queue.h"
