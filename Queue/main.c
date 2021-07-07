@@ -9,37 +9,39 @@ int main(int args, char* argv[]) {
     struct Queue myQueue;
     initQueue(&myQueue);
 
-    printf("adding 0:9 into queue\n");
-
-    for (int i = 0; i < 10; ++i)
-        push(&myQueue, i);
-
-    printf("queue front = %d\n", front(&myQueue));
-
+    printQueue(&myQueue);
+    
+    push(&myQueue, 1);
     printQueue(&myQueue);
 
-    printf("popping 3 from queue\n");
-
-    for (int i = 0; i < 3; ++i)
-        pop(&myQueue);
-
-    printf("queue front = %d\n", front(&myQueue));
-
+    push(&myQueue, 2);
     printQueue(&myQueue);
 
-    printf("adding 0:2 into queue\n");
-
-    for (int i = 0; i < 3; ++i)
-        push(&myQueue, i);
-
-    printf("queue front = %d\n", front(&myQueue));
+    push(&myQueue, 3);
     printQueue(&myQueue);
 
-    printf("freeing queue\n");
+    push(&myQueue, 4);
+    printQueue(&myQueue);
+    
+    push(&myQueue, 5);
+    printQueue(&myQueue);
+
+    pop(&myQueue);
+    printQueue(&myQueue);
+
+    pop(&myQueue);
+    printQueue(&myQueue);
+
+    pop(&myQueue);
+    printQueue(&myQueue);
+
+    pop(&myQueue);
+    printQueue(&myQueue);
+
+    pop(&myQueue);
+    printQueue(&myQueue);
 
     deleteQueue(&myQueue);
-
-    printQueue(&myQueue);
 
     return 0;
 }
