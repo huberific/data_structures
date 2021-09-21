@@ -83,7 +83,7 @@ TYPE getDynArr(struct DynArr *da, int position) {
 TYPE putDynArr(struct DynArr *da, int position, TYPE value) {
 
     assert(position >= 0);
-    assert(da->size > 0 && position < da->size);
+    assert(da->size > 0 && position < da->cap);
 
     da->data[position] = value;
 
